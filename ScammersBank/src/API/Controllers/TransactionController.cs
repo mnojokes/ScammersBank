@@ -3,22 +3,21 @@
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
 public class TransactionController : ControllerBase
 {
-    [HttpPost]
-    public async Task Credit() // account id amount
+    [HttpPost("[action]/{id}")]
+    public async Task Credit(int id) // account id amount
     {
         throw new NotImplementedException();
     }
 
-    [HttpPost]
-    public async Task Debit() // account id amount
+    [HttpPost("[action]/{id}")]
+    public async Task Debit(int id) // account id amount
     {
         throw new NotImplementedException();
     }
 
-    [HttpPost]
+    [HttpPost("[action]")]
     public async Task Transfer() // from account id to account id amount
     {
         throw new NotImplementedException();

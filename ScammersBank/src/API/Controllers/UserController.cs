@@ -3,36 +3,37 @@
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
 public class UserController : ControllerBase
 {
-    [HttpPost]
+    [HttpPost("[controller]")]
     public async Task<string> Create()
     {
         throw new NotImplementedException();
     }
 
-    [HttpPut]
+    [HttpPut("[controller]")]
     public async Task Update()
     {
         throw new NotImplementedException();
     }
 
-    [HttpDelete]
+    [HttpDelete("[controller]")]
     public async Task Delete()
     {
         throw new NotImplementedException();
     }
 
-    [HttpGet]
+    [HttpGet("[controller]/{id}")]
     public async Task Get(int id)
     {
         throw new NotImplementedException();
     }
 
-    [HttpGet]
+    [HttpGet("[controller]")]
     public async Task Get()
     {
         throw new NotImplementedException();
     }
+
+    // TODO: add transaction getting endpoints (by id, account id (and type?), all)
 }

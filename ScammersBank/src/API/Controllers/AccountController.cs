@@ -4,34 +4,33 @@ using System.Security.Cryptography.X509Certificates;
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
 public class AccountController : ControllerBase
 {
-    [HttpPost]
+    [HttpPost("[controller]")]
     public async Task<int> Create() // userid + account type
     {
         throw new NotImplementedException();
     }
 
-    [HttpPut]
+    [HttpPut("[controller]")]
     public async Task Update()
     {
         throw new NotImplementedException();
     }
 
-    [HttpDelete]
+    [HttpDelete("[controller]")]
     public async Task Delete() // account id
     {
         throw new NotImplementedException();
     }
 
-    [HttpGet]
-    public async Task Get(int id)
+    [HttpGet("[controller]/{id}")]
+    public async Task Gets(int id)
     {
         throw new NotImplementedException();
     }
 
-    [HttpGet]
+    [HttpGet("[controller]")]
     public async Task Get()
     {
         throw new NotImplementedException();
