@@ -5,21 +5,46 @@ namespace API.Controllers;
 [ApiController]
 public class TransactionController : ControllerBase
 {
-    [HttpPost("[action]/{id}")]
-    public async Task Credit(int id) // account id amount
+    [HttpPost("[controller]/[action]/{accountId}")]
+    public async Task<IActionResult> Credit(int accountId) // account id amount
     {
         throw new NotImplementedException();
     }
 
-    [HttpPost("[action]/{id}")]
-    public async Task Debit(int id) // account id amount
+    [HttpPost("[controller]/[action]/{accountId}")]
+    public async Task<IActionResult> Debit(int accountId) // account id amount
     {
         throw new NotImplementedException();
     }
 
-    [HttpPost("[action]")]
-    public async Task Transfer() // from account id to account id amount
+    [HttpPost("[controller]/[action]")]
+    public async Task<IActionResult> Transfer() // from account id to account id amount
     {
         throw new NotImplementedException();
     }
+
+    [HttpGet("[controller]/{id}")]
+    public async Task<IActionResult> Get(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet("{userId}/[controller]/{type}")]
+    public async Task<IActionResult> GetUser(int userId, string? type)
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet("{accountId}/[controller]/{type}")]
+    public async Task<IActionResult> GetAccount(int accountId, string? type)
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet("[controller]")]
+    public async Task<IActionResult> Get()
+    {
+        throw new NotImplementedException();
+    }
+
 }

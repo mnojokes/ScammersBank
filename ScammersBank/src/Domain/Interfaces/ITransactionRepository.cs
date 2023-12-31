@@ -1,4 +1,5 @@
-﻿using Domain.Objects.Entity;
+﻿using Domain.Objects.CustomTypes;
+using Domain.Objects.Entity;
 
 namespace Domain.Interfaces;
 
@@ -8,5 +9,6 @@ public interface ITransactionRepository
     public Task Delete(int id);
     public Task Get(int id);
     public Task Get();
-    public Task GetAll(int accountId);
+    public Task GetAllUser(int userId, TransactionType? type);
+    public Task GetAllAccount(int accountId, TransactionType? type);
 }

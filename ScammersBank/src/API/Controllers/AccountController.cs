@@ -1,38 +1,47 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography.X509Certificates;
+using Application.Services;
+using Domain.Objects.DTO;
 
 namespace API.Controllers;
 
 [ApiController]
 public class AccountController : ControllerBase
 {
-    [HttpPost("[controller]")]
-    public async Task<int> Create() // userid + account type
+    private readonly AccountService _accountService;
+    public AccountController(AccountService accountService)
     {
-        throw new NotImplementedException();
+        _accountService = accountService;
+    }
+
+    [HttpPost("[controller]")]
+    public async Task<IActionResult> Create([FromBody]CreateAccount account)
+    {
+        return Ok(await _accountService.Create(account));
     }
 
     [HttpPut("[controller]")]
-    public async Task Update()
+    public async Task<IActionResult> Update([FromBody]UpdateAccount account)
     {
-        throw new NotImplementedException();
+        await _accountService.Update(account);
+        return Ok();
     }
 
-    [HttpDelete("[controller]")]
-    public async Task Delete() // account id
+    [HttpDelete("[controller]/{id}")]
+    public async Task<IActionResult> Delete(int id)
     {
-        throw new NotImplementedException();
+        await _accountService.Close(id);
+        return Ok();
     }
 
     [HttpGet("[controller]/{id}")]
-    public async Task Gets(int id)
+    public async Task<IActionResult> Get(int id)
     {
-        throw new NotImplementedException();
+        return Ok(await _accountService.Get(id));
     }
 
     [HttpGet("[controller]")]
-    public async Task Get()
+    public async Task<IActionResult> Get()
     {
-        throw new NotImplementedException();
+        return Ok(await _accountService.Get());
     }
 }

@@ -1,12 +1,5 @@
 ﻿namespace Domain.Objects.Entity;
 
-// TODO: remove or move elsewhere
-public enum AccountType
-{
-    Default = 0,
-    Savings
-}
-
 public class AccountEntity
 {
     public int Id { get; set; }

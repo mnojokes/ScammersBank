@@ -1,39 +1,47 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Services;
+using Domain.Objects.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
 public class UserController : ControllerBase
 {
-    [HttpPost("[controller]")]
-    public async Task<string> Create()
+    private readonly UserService _userService;
+    public UserController(UserService userService)
     {
-        throw new NotImplementedException();
+        _userService = userService;
+    }
+
+    [HttpPost("[controller]")]
+    public async Task<IActionResult> Create([FromBody]CreateUser user)
+    {
+        return Ok(await _userService.Create(user));
     }
 
     [HttpPut("[controller]")]
-    public async Task Update()
+    public async Task<IActionResult> Update([FromBody]UpdateUser user)
     {
-        throw new NotImplementedException();
+        await _userService.Update(user);
+        return Ok();
     }
 
-    [HttpDelete("[controller]")]
-    public async Task Delete()
+    [HttpDelete("[controller]/{id}")]
+    public async Task<IActionResult> Delete(int id)
     {
-        throw new NotImplementedException();
+        await _userService.Delete(id);
+        return Ok();
     }
 
     [HttpGet("[controller]/{id}")]
-    public async Task Get(int id)
+    public async Task<IActionResult> Get(int id)
     {
-        throw new NotImplementedException();
+        return Ok(await _userService.Get(id));
     }
 
     [HttpGet("[controller]")]
-    public async Task Get()
+    public async Task<IActionResult> Get()
     {
-        throw new NotImplementedException();
+        return Ok(await _userService.Get());
     }
-
-    // TODO: add transaction getting endpoints (by id, account id (and type?), all)
 }
