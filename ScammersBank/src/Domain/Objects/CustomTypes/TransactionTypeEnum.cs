@@ -2,6 +2,7 @@
 
 public enum TransactionType
 {
-    Credit = 0,
+    Any = 0,
+    Credit,
     Debit
 }

@@ -8,18 +8,22 @@ public class AccountService
     {
         throw new NotImplementedException();
     }
+
     public async Task Update(UpdateAccount account)
     {
         throw new NotImplementedException();
     }
+
     public async Task Close(int id)
     {
         throw new NotImplementedException();
     }
+
     public async Task<Account> Get(int id)
     {
         throw new NotImplementedException();
     }
+
     public async Task<List<Account>> Get()
     {
         throw new NotImplementedException();

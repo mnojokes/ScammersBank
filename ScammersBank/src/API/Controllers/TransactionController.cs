@@ -1,50 +1,60 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Services;
+using Domain.Objects.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
 public class TransactionController : ControllerBase
 {
-    [HttpPost("[controller]/[action]/{accountId}")]
-    public async Task<IActionResult> Credit(int accountId) // account id amount
-    {
-        throw new NotImplementedException();
-    }
+    private readonly TransactionService _transactionService;
 
-    [HttpPost("[controller]/[action]/{accountId}")]
-    public async Task<IActionResult> Debit(int accountId) // account id amount
+    public TransactionController(TransactionService transactionService)
     {
-        throw new NotImplementedException();
+        _transactionService = transactionService;
     }
 
     [HttpPost("[controller]/[action]")]
-    public async Task<IActionResult> Transfer() // from account id to account id amount
+    public async Task<IActionResult> Credit([FromBody]CreateTransaction transaction)
     {
-        throw new NotImplementedException();
+        return Ok(await _transactionService.CreateCredit(transaction));
+    }
+
+    [HttpPost("[controller]/[action]")]
+    public async Task<IActionResult> Debit([FromBody]CreateTransaction transaction)
+    {
+        return Ok(await _transactionService.CreateDebit(transaction));
+    }
+
+    [HttpPost("[controller]/[action]")]
+    public async Task<IActionResult> Transfer([FromBody]CreateTransfer transfer) // from account id to account id amount
+    {
+        await _transactionService.CreateTransfer(transfer);
+        return Ok();
     }
 
     [HttpGet("[controller]/{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        throw new NotImplementedException();
+        return Ok(await _transactionService.Get(id));
     }
 
     [HttpGet("{userId}/[controller]/{type}")]
-    public async Task<IActionResult> GetUser(int userId, string? type)
+    public async Task<IActionResult> GetForUser(int userId, string? type)
     {
-        throw new NotImplementedException();
+        return Ok(await _transactionService.GetForUser(userId, type));
     }
 
     [HttpGet("{accountId}/[controller]/{type}")]
-    public async Task<IActionResult> GetAccount(int accountId, string? type)
+    public async Task<IActionResult> GetForAccount(int accountId, string? type)
     {
-        throw new NotImplementedException();
+        return Ok(await _transactionService.GetForAccount(accountId, type));
     }
 
     [HttpGet("[controller]")]
     public async Task<IActionResult> Get()
     {
-        throw new NotImplementedException();
+        return Ok(await _transactionService.Get());
     }
 
 }

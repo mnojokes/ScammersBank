@@ -9,18 +9,22 @@ public class UserService
     {
         throw new NotImplementedException();
     }
+
     public async Task Update(UpdateUser user)
     {
         throw new NotImplementedException();
     }
+
     public async Task Delete(int id)
     {
         throw new NotImplementedException();
     }
+
     public async Task<User> Get(int id)
     {
         throw new NotImplementedException();
     }
+
     public async Task<List<User>> Get()
     {
         throw new NotImplementedException();
