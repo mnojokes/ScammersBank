@@ -4,6 +4,8 @@ using DbUp;
 using Infrastructure;
 using System.Reflection;
 
+const string connectionSettings = "PostgreConnection";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,18 +15,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//string connection = builder.Configuration.GetConnectionString("PostgreConnection") ?? throw new ArgumentNullException("PostgreConnection");
-//EnsureDatabase.For.PostgresqlDatabase(connection);
-
-//var upgrader = DeployChanges.To
-//    .PostgresqlDatabase(connection)
-//    .WithScriptsEmbeddedInAssembly(Assembly.GetExecutingAssembly())
-//    .Build();
-
-//var result = upgrader.PerformUpgrade();
+string dbConnection = builder.Configuration.GetConnectionString(connectionSettings)
+    ?? throw new ArgumentNullException(nameof(dbConnection));
 
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(dbConnection);
 
 var app = builder.Build();
 
