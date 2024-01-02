@@ -1,5 +1,6 @@
 ﻿using Application.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Domain.MapperProfiles;
 
 namespace Application;
 
@@ -10,5 +11,6 @@ public static class DependencyInjection
         services.AddScoped<AccountService>();
         services.AddScoped<TransactionService>();
         services.AddScoped<UserService>();
+        services.AddAutoMapper(typeof(UserProfile));
     }
 }

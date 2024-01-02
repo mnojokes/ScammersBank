@@ -27,7 +27,7 @@ public class TransactionController : ControllerBase
     }
 
     [HttpPost("[controller]/[action]")]
-    public async Task<IActionResult> Transfer([FromBody]CreateTransfer transfer) // from account id to account id amount
+    public async Task<IActionResult> Transfer([FromBody]CreateTransfer transfer)
     {
         await _transactionService.CreateTransfer(transfer);
         return Ok();
@@ -56,5 +56,4 @@ public class TransactionController : ControllerBase
     {
         return Ok(await _transactionService.Get());
     }
-
 }

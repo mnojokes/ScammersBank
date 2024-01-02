@@ -3,5 +3,7 @@
 public enum AccountType
 {
     Default = 0,
-    Savings
+    Savings,
+    Last = Savings,
+    Any
 }

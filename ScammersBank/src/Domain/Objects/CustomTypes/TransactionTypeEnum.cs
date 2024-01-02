@@ -2,7 +2,8 @@
 
 public enum TransactionType
 {
-    Any = 0,
-    Credit,
-    Debit
+    Credit = 0,
+    Debit,
+    Last = Debit,
+    Any
 }

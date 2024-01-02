@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Domain.Exceptions;
+using System.Net;
 using System.Text.Json;
 
 namespace API.Middlewares
@@ -26,9 +27,11 @@ namespace API.Middlewares
 
                 response.StatusCode = ex switch
                 {
-                    // TODO
-                    //ArgumentNullException e => (int)HttpStatusCode.NotFound,
-                    //InvalidOperationException e => (int)HttpStatusCode.NotFound,
+                    InvalidAccountTypeException e => (int)HttpStatusCode.UnprocessableContent,
+                    InvalidTransactionTypeException e => (int)HttpStatusCode.UnprocessableContent,
+                    AccountNotFoundException e => (int)HttpStatusCode.NotFound,
+                    TransactionNotFoundException e => (int)HttpStatusCode.NotFound,
+                    UserNotFoundException e => (int)HttpStatusCode.NotFound,
                     _ => (int)HttpStatusCode.InternalServerError
                 };
 

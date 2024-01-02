@@ -4,6 +4,6 @@ namespace Domain.Objects.DTO;
 
 public class CreateAccount
 {
-    [Required] public string Type { get; set; }
-    [Required] public int HolderId { get; set; }
+    [Required] public string Type { get; set; } = string.Empty;
+    [Required] public int HolderId { get; set; } = default;
 }

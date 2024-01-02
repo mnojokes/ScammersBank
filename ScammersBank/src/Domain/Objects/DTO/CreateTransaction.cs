@@ -4,6 +4,6 @@ namespace Domain.Objects.DTO;
 
 public class CreateTransaction
 {
-    [Required] public int Id { get; set; }
-    [Required] public decimal Amount { get; set; }
+    [Required] public int AccountId { get; set; } = default;
+    [Required] public decimal Amount { get; set; } = default;
 }

@@ -4,6 +4,9 @@ namespace Domain.Interfaces;
 
 public interface IAccountRepository
 {
-    public Task Create(AccountEntity account);
+    public Task<int> Create(AccountEntity account);
+    public Task Update(AccountEntity account);
     public Task Close(int id);
+    public Task<AccountEntity> Get(int id);
+    public Task<IEnumerable<AccountEntity>> Get();
 }

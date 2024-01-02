@@ -2,7 +2,7 @@
 
 public class CreateTransfer
 {
-    public int? FromAccountId { get; set; } = null;
-    public int? ToAccountId { get; set; } = null;
-    decimal Amount { get; set; } = 0m;
+    public int? FromAccountId { get; set; } = default;
+    public int? ToAccountId { get; set; } = default;
+    public decimal Amount { get; set; } = default;
 }

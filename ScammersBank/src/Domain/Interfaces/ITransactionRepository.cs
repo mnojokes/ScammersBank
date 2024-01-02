@@ -5,10 +5,10 @@ namespace Domain.Interfaces;
 
 public interface ITransactionRepository
 {
-    public Task Create(TransactionEntity transaction);
+    public Task<int> Create(TransactionEntity transaction);
     public Task Delete(int id);
-    public Task Get(int id);
-    public Task Get();
-    public Task GetAllUser(int userId, TransactionType? type);
-    public Task GetAllAccount(int accountId, TransactionType? type);
+    public Task<TransactionEntity> Get(int id);
+    public Task<IEnumerable<TransactionEntity>> Get();
+    public Task<IEnumerable<TransactionEntity>> GetAllForUser(int userId, TransactionType type);
+    public Task<IEnumerable<TransactionEntity>> GetAllForAccount(int accountId, TransactionType type);
 }
