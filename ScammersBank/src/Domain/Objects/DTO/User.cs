@@ -1,6 +1,4 @@
-﻿using Domain.Objects.Entity;
-
-namespace Domain.Objects.DTO;
+﻿namespace Domain.Objects.DTO;
 
 public class User
 {

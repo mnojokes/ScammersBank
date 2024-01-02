@@ -8,6 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Scripts\Script1.sql" />
+    <None Remove="Scripts\Script2.sql" />
+    <None Remove="Scripts\Script3.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\Script1.sql" />
+    <EmbeddedResource Include="Scripts\Script2.sql" />
+    <EmbeddedResource Include="Scripts\Script3.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="dbup-postgresql" Version="5.0.37" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 

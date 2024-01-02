@@ -6,7 +6,7 @@ namespace Domain.Objects.DTO;
 public class Transaction
 {
     public int Id { get; set; } = default;
-    public int AccountId { get; set; } = default; 
+    public int AccountId { get; set; } = default;
     public string Type { get; set; } = string.Empty;
     public decimal Amount { get; set; } = default;
     public decimal Fees { get; set; } = default;

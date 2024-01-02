@@ -15,13 +15,13 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("[controller]")]
-    public async Task<IActionResult> Create([FromBody]CreateUser user)
+    public async Task<IActionResult> Create([FromBody] CreateUser user)
     {
         return Ok(await _userService.Create(user));
     }
 
     [HttpPut("[controller]")]
-    public async Task<IActionResult> Update([FromBody]UpdateUser user)
+    public async Task<IActionResult> Update([FromBody] UpdateUser user)
     {
         await _userService.Update(user);
         return Ok();

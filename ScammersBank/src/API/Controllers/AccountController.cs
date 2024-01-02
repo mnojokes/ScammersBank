@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Application.Services;
+﻿using Application.Services;
 using Domain.Objects.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
@@ -15,13 +15,13 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("[controller]")]
-    public async Task<IActionResult> Create([FromBody]CreateAccount account)
+    public async Task<IActionResult> Create([FromBody] CreateAccount account)
     {
         return Ok(await _accountService.Create(account));
     }
 
     [HttpPut("[controller]")]
-    public async Task<IActionResult> Update([FromBody]UpdateAccount account)
+    public async Task<IActionResult> Update([FromBody] UpdateAccount account)
     {
         await _accountService.Update(account);
         return Ok();

@@ -1,6 +1,6 @@
 ﻿using Application.Services;
-using Microsoft.Extensions.DependencyInjection;
 using Domain.MapperProfiles;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
 
