@@ -10,6 +10,7 @@ namespace Application.Services;
 
 public class TransactionService
 {
+    private const decimal _transferFee = 1.0m;
     private readonly ITransactionRepository _transactionRepository;
 
     public TransactionService(ITransactionRepository transactionRepository)
@@ -35,7 +36,7 @@ public class TransactionService
     {
         if (transfer.FromAccountId != null)
         {
-            TransactionEntity entity = new TransactionEntity() { AccountId = (int)transfer.FromAccountId, Amount = transfer.Amount, Type = (int)TransactionType.Debit };
+            TransactionEntity entity = new TransactionEntity() { AccountId = (int)transfer.FromAccountId, Amount = transfer.Amount, Fees = _transferFee, Type = (int)TransactionType.Debit };
             if (await CreateTransaction(entity) == default)
             {
                 throw new InvalidOperationException("Failed to create transfer Debit transaction");
