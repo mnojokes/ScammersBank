@@ -12,10 +12,12 @@ public class TransactionService
 {
     private const decimal _transferFee = 1.0m;
     private readonly ITransactionRepository _transactionRepository;
+    private readonly IAccountRepository _accountRepository;
 
-    public TransactionService(ITransactionRepository transactionRepository)
+    public TransactionService(ITransactionRepository transactionRepository, IAccountRepository accountRepository)
     {
         _transactionRepository = transactionRepository;
+        _accountRepository = accountRepository;
     }
 
     public async Task<string> CreateCredit(CreateTransaction transaction)
@@ -34,15 +36,17 @@ public class TransactionService
 
     public async Task CreateTransfer(CreateTransfer transfer)
     {
+        bool isOutgoingSuccessful = false;
         if (transfer.FromAccountId != null)
         {
             TransactionEntity entity = new TransactionEntity() { AccountId = (int)transfer.FromAccountId, Amount = transfer.Amount, Fees = _transferFee, Type = (int)TransactionType.Debit };
-            if (await CreateTransaction(entity) == default)
+            isOutgoingSuccessful = await CreateTransaction(entity) != default;
+            if (!isOutgoingSuccessful)
             {
                 throw new InvalidOperationException("Failed to create transfer Debit transaction");
             }
         }
-        if (transfer.ToAccountId != null)
+        if (transfer.ToAccountId != null && isOutgoingSuccessful)
         {
             TransactionEntity entity = new TransactionEntity() { AccountId = (int)transfer.ToAccountId, Amount = transfer.Amount, Type = (int)TransactionType.Credit };
             if (await CreateTransaction(entity) == default)
@@ -84,6 +88,11 @@ public class TransactionService
 
     private async Task<int> CreateTransaction(TransactionEntity transaction)
     {
+        AccountEntity acc = await _accountRepository.Get(transaction.AccountId);
+        if (acc.IsClosed)
+        {
+            throw new InvalidOperationException($"Account id \"{transaction.AccountId}\" is closed. Cannot add transaction.");
+        }
         return await _transactionRepository.Create(transaction);
     }
 }

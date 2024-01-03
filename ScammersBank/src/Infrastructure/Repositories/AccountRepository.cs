@@ -1,6 +1,9 @@
 ﻿using Domain.Interfaces;
 using Domain.Objects.Entity;
 using System.Data;
+using Dapper;
+using Domain.Exceptions;
+using Domain.Objects.DTO;
 
 namespace Infrastructure.Repositories;
 
@@ -13,28 +16,70 @@ public class AccountRepository : IAccountRepository
         _connection = connection;
     }
 
-    public Task<int> Create(AccountEntity account)
+    public async Task<int> Create(AccountEntity account)
     {
-        throw new NotImplementedException();
+        string sql = "INSERT INTO accounts (type, balance, \"holderId\") VALUES (@type, @balance, @holderId) RETURNING id";
+        var query = new
+        {
+            type = account.Type,
+            balance = account.Balance,
+            holderId = account.HolderId
+        };
+
+        int objectId = await _connection.QuerySingleOrDefaultAsync<int>(sql, query);
+        if (objectId == default)
+        {
+            throw new InvalidOperationException("AccountRepository::Create unable to add account");
+        }
+
+        return objectId;
     }
 
-    public Task Update(AccountEntity account)
+    public async Task Update(AccountEntity account)
     {
-        throw new NotImplementedException();
+        string sql = "UPDATE accounts SET type = @type WHERE id = @id";
+        var query = new
+        {
+            type = account.Type,
+            id = account.Id
+        };
+
+        if (await _connection.ExecuteAsync(sql, query) != 1)
+        {
+            throw new AccountNotFoundException(account.Id.ToString());
+        }
     }
 
-    public Task Close(int id)
+    public async Task Close(int id)
     {
-        throw new NotImplementedException();
+        string sql = "UPDATE accounts SET \"isClosed\" = @isClosed WHERE id = @id";
+        var query = new
+        {
+            isClosed = true,
+            id = id
+        };
+
+        if (await _connection.ExecuteAsync(sql, query) != 1)
+        {
+            throw new AccountNotFoundException(id.ToString());
+        }
     }
 
-    public Task<AccountEntity> Get(int id)
+    public async Task<AccountEntity> Get(int id)
     {
-        throw new NotImplementedException();
+        string sql = "SELECT * FROM accounts WHERE id = @id";
+        var query = new
+        {
+            id = id
+        };
+
+        return await _connection.QuerySingleOrDefaultAsync<AccountEntity>(sql, query) ?? throw new AccountNotFoundException(id.ToString());
     }
 
-    public Task<IEnumerable<AccountEntity>> Get()
+    public async Task<IEnumerable<AccountEntity>> Get()
     {
-        throw new NotImplementedException();
+        string sql = "SELECT * FROM accounts";
+
+        return await _connection.QueryAsync<AccountEntity>(sql);
     }
 }
