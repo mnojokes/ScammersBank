@@ -14,13 +14,13 @@ public class TransactionController : ControllerBase
         _transactionService = transactionService;
     }
 
-    [HttpPost("[controller]/[action]")]
+    [HttpPost("[controller]/Credit")]
     public async Task<IActionResult> Credit([FromBody] CreateTransaction transaction)
     {
         return Ok(await _transactionService.CreateCredit(transaction));
     }
 
-    [HttpPost("[controller]/[action]")]
+    [HttpPost("[controller]/Debit")]
     public async Task<IActionResult> Debit([FromBody] CreateTransaction transaction)
     {
         return Ok(await _transactionService.CreateDebit(transaction));
