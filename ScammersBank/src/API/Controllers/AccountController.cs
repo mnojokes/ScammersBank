@@ -24,14 +24,14 @@ public class AccountController : ControllerBase
     public async Task<IActionResult> Update([FromBody] UpdateAccount account)
     {
         await _accountService.Update(account);
-        return Ok();
+        return NoContent();
     }
 
     [HttpDelete("[controller]/{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         await _accountService.Close(id);
-        return Ok();
+        return NoContent();
     }
 
     [HttpGet("[controller]/{id}")]

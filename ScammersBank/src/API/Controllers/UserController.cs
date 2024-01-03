@@ -24,14 +24,14 @@ public class UserController : ControllerBase
     public async Task<IActionResult> Update([FromBody] UpdateUser user)
     {
         await _userService.Update(user);
-        return Ok();
+        return NoContent();
     }
 
     [HttpDelete("[controller]/{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         await _userService.Delete(id);
-        return Ok();
+        return NoContent();
     }
 
     [HttpGet("[controller]/{id}")]

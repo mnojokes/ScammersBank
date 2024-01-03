@@ -30,7 +30,7 @@ public class TransactionController : ControllerBase
     public async Task<IActionResult> Transfer([FromBody] CreateTransfer transfer)
     {
         await _transactionService.CreateTransfer(transfer);
-        return Ok();
+        return NoContent();
     }
 
     [HttpGet("[controller]/{id}")]

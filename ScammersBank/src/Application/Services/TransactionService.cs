@@ -36,6 +36,11 @@ public class TransactionService
 
     public async Task CreateTransfer(CreateTransfer transfer)
     {
+        if (transfer.Amount <= 0.00m)
+        {
+            throw new InvalidOperationException("Transfer must contain amount > 0");
+        }
+
         bool isOutgoingSuccessful = false;
         if (transfer.FromAccountId != null)
         {
