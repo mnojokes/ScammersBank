@@ -2,7 +2,6 @@
 using Domain.Exceptions;
 using Domain.Interfaces;
 using Domain.Objects.CustomTypes;
-using Domain.Objects.DTO;
 using Domain.Objects.Entity;
 using System.Data;
 
@@ -54,7 +53,7 @@ public class TransactionRepository : ITransactionRepository
 
     public async Task<IEnumerable<TransactionEntity>> GetAllForAccount(int accountId, TransactionType type)
     {
-        string sql = "SELECT * FROM transactions WHERE \"isDeleted\" = FALSE, \"accountId\" = @accId";
+        string sql = "SELECT * FROM transactions WHERE \"isDeleted\" = FALSE AND \"accountId\" = @accId";
         if (type < TransactionType.Any)
         {
             sql += " AND type = @type";

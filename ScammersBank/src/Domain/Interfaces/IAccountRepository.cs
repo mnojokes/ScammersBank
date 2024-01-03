@@ -9,4 +9,5 @@ public interface IAccountRepository
     public Task Close(int id);
     public Task<AccountEntity> Get(int id);
     public Task<IEnumerable<AccountEntity>> Get();
+    public Task AdjustBalance(int id, decimal change);
 }

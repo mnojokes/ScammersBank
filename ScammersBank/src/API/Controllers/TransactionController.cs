@@ -39,13 +39,13 @@ public class TransactionController : ControllerBase
         return Ok(await _transactionService.Get(id));
     }
 
-    [HttpGet("{userId}/[controller]/{type}")]
+    [HttpGet("User/[controller]/Type")]
     public async Task<IActionResult> GetForUser(int userId, string? type)
     {
         return Ok(await _transactionService.GetForUser(userId, type));
     }
 
-    [HttpGet("{accountId}/[controller]/{type}")]
+    [HttpGet("Account/[controller]/Type")]
     public async Task<IActionResult> GetForAccount(int accountId, string? type)
     {
         return Ok(await _transactionService.GetForAccount(accountId, type));

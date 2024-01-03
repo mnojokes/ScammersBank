@@ -1,9 +1,8 @@
-﻿using Domain.Interfaces;
+﻿using Dapper;
+using Domain.Exceptions;
+using Domain.Interfaces;
 using Domain.Objects.Entity;
 using System.Data;
-using Dapper;
-using Domain.Exceptions;
-using Domain.Objects.DTO;
 
 namespace Infrastructure.Repositories;
 
@@ -81,5 +80,20 @@ public class AccountRepository : IAccountRepository
         string sql = "SELECT * FROM accounts";
 
         return await _connection.QueryAsync<AccountEntity>(sql);
+    }
+
+    public async Task AdjustBalance(int id, decimal change)
+    {
+        string sql = "UPDATE accounts SET balance = balance + @change WHERE id = @id";
+        var query = new
+        {
+            id = id,
+            change = change
+        };
+
+        if (await _connection.ExecuteAsync(sql, query) != 1)
+        {
+            throw new AccountNotFoundException(id.ToString());
+        }
     }
 }

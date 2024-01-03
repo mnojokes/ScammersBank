@@ -22,14 +22,14 @@ public class TransactionService
 
     public async Task<string> CreateCredit(CreateTransaction transaction)
     {
-        TransactionEntity entity = new TransactionEntity() { AccountId = transaction.AccountId, Amount = transaction.Amount, Type = (int)TransactionType.Credit };
+        TransactionEntity entity = new TransactionEntity() { AccountId = transaction.AccountId, Amount = transaction.Amount, Fees = _transferFee, Type = (int)TransactionType.Credit };
         int ret = await CreateTransaction(entity);
         return JsonSerializer.Serialize(new { id = ret.ToString() });
     }
 
     public async Task<string> CreateDebit(CreateTransaction transaction)
     {
-        TransactionEntity entity = new TransactionEntity() { AccountId = transaction.AccountId, Amount = transaction.Amount, Type = (int)TransactionType.Debit };
+        TransactionEntity entity = new TransactionEntity() { AccountId = transaction.AccountId, Amount = -transaction.Amount, Type = (int)TransactionType.Debit };
         int ret = await CreateTransaction(entity);
         return JsonSerializer.Serialize(new { id = ret.ToString() });
     }
@@ -93,6 +93,8 @@ public class TransactionService
         {
             throw new InvalidOperationException($"Account id \"{transaction.AccountId}\" is closed. Cannot add transaction.");
         }
-        return await _transactionRepository.Create(transaction);
+        int ret = await _transactionRepository.Create(transaction);
+        await _accountRepository.AdjustBalance(transaction.AccountId, transaction.Amount - transaction.Fees);
+        return ret;
     }
 }

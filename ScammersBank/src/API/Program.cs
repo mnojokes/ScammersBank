@@ -1,8 +1,6 @@
 using API.Middlewares;
 using Application;
-using DbUp;
 using Infrastructure;
-using System.Reflection;
 
 const string connectionSettings = "PostgreConnection";
 

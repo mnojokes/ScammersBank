@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Domain.Exceptions;
 using Domain.Interfaces;
-using Domain.Objects.DTO;
 using Domain.Objects.Entity;
 using System.Data;
 
